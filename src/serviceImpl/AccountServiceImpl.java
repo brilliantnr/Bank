@@ -9,14 +9,14 @@ public class AccountServiceImpl implements AccountService {
 	// 메인
 	AccountBean[] list;
 	int count;
-
+ 
 	public AccountServiceImpl() {
 		list = new AccountBean[10];
 		count = 0; 	 //생성자의 역할이 초기화
 	}
 	@Override
 	public void createAccount(AccountBean ac) {
-		ac.setAccountNo(createAccountNo(createRandom(0, 999)));
+		ac.setAccountNo(createAccountNo());
 		ac.setCreateDate(createDate());
 		addList(ac);
 	}
@@ -26,6 +26,14 @@ public class AccountServiceImpl implements AccountService {
 	}
 	@Override
 	public AccountBean[] list() {
+		
+		System.out.println("배열의 카운드"+count);
+		String res = "";
+		for(int i=0;i<count;i++) {
+			res +=list[i]+"\n";
+		}
+		System.out.println("배열내부 \n"+res);
+		
 		return list;
 	}
 	@Override
@@ -39,13 +47,15 @@ public class AccountServiceImpl implements AccountService {
 		return 0;
 	}
 	@Override
-	public String createAccountNo(String random) {
-		return String.format("%d-%d-%d", createRandom(0, 999));
+	public String createAccountNo() {
+		return String.format("%s-%s-%s",
+				createRandom(0,999),
+				createRandom(0,999),
+				createRandom(0,999));
 	}
 	@Override
 	public String createRandom(int start, int end) {
-		return String.format("%03d", Math.random()*end +start);
-	
+		return String.format("%03d",(int)(Math.random()*end) +start);
 	}
 	@Override
 	public String createDate() {
@@ -95,15 +105,70 @@ public class AccountServiceImpl implements AccountService {
 			if (word.equals(list[i].getName())) {
 				temp++;
 			}
-		}
+		} 
 		return temp;
 	}
+	@Override
+	public AccountBean[] minusList() {
+		AccountBean[] arr = new AccountBean[0]; 
+		
+		return arr;
+	}
+	@Override
+	public String changePw(AccountBean ac) {
+		//  성공: 변경완료
+		// 실패 : 변경실패( pw 와newpw 같으면 실패)
+		String msg ="";
+		String pw = ac.getPw().split("/")[0];
+		String newPw = ac.getPw().split("/")[1];
+		ac.setPw(pw);
+		ac = findById(ac);
+		
+		if(ac.getUid()==null) {
+			msg = "ID 존재무, 혹은 비번 틀림";
+		}else {
+			if(pw.equals(newPw)){
+				msg = "비밀번호 변경 실패";
+			}else {
+				ac.setPw(newPw);
+				msg = "변경완료";
+			}
+		}
+		
+		/*if(findById(ac).getPw().equals(newPw)) {
+			msg = "변경실패";
+		}else {
+			msg = "변경완료";
+		}*/
+		return msg;
+	}
+	@Override
+	public String deleteAccount(AccountBean ac) {
+		String msg = "ID 존재무, 혹은 비번 틀림";
+		String pw =ac.getPw().split("/")[0];
+		String confirmPw =ac.getPw().split("/")[1];
+	
+		for(int i=0;i<count;i++){
+			if(ac.getUid().equals(list[i].getUid())
+					&&
+					pw.equals(list[i].getPw())
+					&&
+					confirmPw.equals(list[i].getPw())) {
+				list[i]=list[--count];
+				list[count]=null;	
+				//list[i]=list[count-1];
+				//list[count-1]=null;
+					count--;
+					msg = "삭제성공";
+					break;
+				}else {
+					msg = "삭제실패";
+			}
+		}
+	
+		return msg;
+	}
 }
-
-
-
-
-
 
 
 /*String op="";

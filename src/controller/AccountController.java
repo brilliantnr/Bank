@@ -4,15 +4,16 @@ import javax.swing.JOptionPane;
 import domain.*;
 import service.*;
 import serviceImpl.*;
-
+ 
 public class AccountController {
-	enum AccountButt {
-		BASIC, MINUSACCOUNT, LIST, MINUS_LIST, FIND_BY_ID, FIND_BY_NAME, EXIT
+	enum AccountButt { 
+		BASIC, MINUSACCOUNT, LIST, MINUS_LIST, FIND_BY_ID, FIND_BY_NAME,CHANGE_PW,DELETE_ACCOUNT, EXIT
 	};
-
+ 
 	public static void main(String[] args) {
 		AccountButt[] buttons = { AccountButt.BASIC, AccountButt.MINUSACCOUNT, AccountButt.LIST, AccountButt.MINUS_LIST,
-				AccountButt.FIND_BY_ID, AccountButt.FIND_BY_NAME, AccountButt.EXIT };
+				AccountButt.FIND_BY_ID, AccountButt.FIND_BY_NAME, AccountButt.CHANGE_PW,
+				AccountButt.DELETE_ACCOUNT,AccountButt.EXIT };
 
 		AccountBean ac = null;
 		AccountService service = new AccountServiceImpl();
@@ -24,7 +25,7 @@ public class AccountController {
 			switch (select) {
 			case EXIT:
 				return;
-			case BASIC:
+			case BASIC: 
 				ac = new AccountBean();
 				ac.setName(JOptionPane.showInputDialog("이름?"));
 				ac.setUid(JOptionPane.showInputDialog("ID?"));
@@ -47,11 +48,11 @@ public class AccountController {
 				JOptionPane.showMessageDialog(null, service.list());
 				break;
 			case MINUS_LIST:
-				JOptionPane.showMessageDialog(null, service.list());
+				//AccountBean[] arr = service.minusList();
 				break;
 			case FIND_BY_ID:
 				// ID와 PW 받아서 일치하면 계좌내역을 보여줘.(단,비번은 ***로 처리해)
-
+ 
 				ac = new AccountBean();
 				ac.setUid(JOptionPane.showInputDialog("ID?"));
 				ac.setPw(JOptionPane.showInputDialog("비밀번호?"));
@@ -63,6 +64,33 @@ public class AccountController {
 				// 이름하나 입력받지만 여러 명에 대한 배열
 				JOptionPane.showMessageDialog(null, service.findByName(JOptionPane.showInputDialog("NAME")));
 				break;
+			case CHANGE_PW:	
+				ac= new AccountBean();  //ID, PW, NEWPW
+				
+				ac.setUid(JOptionPane.showInputDialog("ID?"));
+				ac.setPw(JOptionPane.showInputDialog("비밀번호?")
+						+"/"+
+						JOptionPane.showInputDialog("새로운 비밀번호?")
+						);
+				String msg = service.changePw(ac);
+				
+				JOptionPane.showMessageDialog(null,msg);
+				
+			case DELETE_ACCOUNT:
+				ac = new AccountBean();
+				
+				ac.setUid(JOptionPane.showInputDialog("ID?"));
+				ac.setPw(JOptionPane.showInputDialog("비밀번호?")
+						+"/"+
+						JOptionPane.showInputDialog("비밀번호확인")
+						);
+				String ms = service.deleteAccount(ac);
+				
+				JOptionPane.showMessageDialog(null,ms);
+				
+				
+				
+			break;
 			default:
 				break;
 			}

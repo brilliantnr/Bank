@@ -8,16 +8,16 @@ public class AccountBean {
 	public final static String WITHDRAW_FAIL = "잔액부족";
 	public final static String DEPOSIT_SUCCESS = "입금성공";
 	public final static String DEPOSIT_FAIL = "적합한 입력값이 아님";
-
+ 
 	protected int money,deposit,withdraw;
-	protected String accountNo, accountType, name, uid, pw, createDate ;
+	protected String accountNo, accountType, name, uid, pw,createDate ;
 	
 	public void setMoney(int money) {
 		this.money = money;
 	}
 	public void setAccountNo(String accountNo) {
 		this.accountNo = accountNo;
-	}
+	} 
 
 	public void setAccountType(String accountType) {
 		this.accountType = ACCOUNT_TYPE;
@@ -53,7 +53,7 @@ public class AccountBean {
 	}
 	public String getName() {
 		return name;
-	}
+	} 
 	public String getUid() {
 		return uid;
 	}
@@ -70,7 +70,8 @@ public class AccountBean {
 		return withdraw;
 	}
 	public String toString() {
-		return String.format("%s \n %s \n 계좌번호 : %s \n 이름 : %s \n 생성일 : %s \n 잔액 : %d", BANK_NAME, ACCOUNT_TYPE,
+		return String.format("----------------------------- \n %s \n %s \n 계좌번호 : %s \n 이름 : %s \n 생성일 : %s \n 잔액 : %d \n ----------------------------- \n", BANK_NAME, ACCOUNT_TYPE,
 				getAccountNo(), getName(), getCreateDate(), getMoney());
 	}
+
 }
