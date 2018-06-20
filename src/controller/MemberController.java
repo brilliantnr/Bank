@@ -33,60 +33,28 @@ public class MemberController {
 			case EXIT:
 				return;
 			case JOIN:
-				// uid, pw, name, ssn, phone, addr,email;
-				member = new UserBean();
-				member.setName(JOptionPane.showInputDialog("이름 입력"));
-				member.setUid(JOptionPane.showInputDialog("ID 입력"));
-				member.setPw(JOptionPane.showInputDialog("비밀번호 입력"));
-				member.setName(JOptionPane.showInputDialog("주민번호 입력"));
-				member.setName(JOptionPane.showInputDialog("전화번호 입력"));
-				member.setName(JOptionPane.showInputDialog("주소 입력"));
-				member.setName(JOptionPane.showInputDialog("이메일 입력"));
-				service.createUser((UserBean) member);
+			
 				break;
 
 			case ADD_STAFF_ONLY:
-				member = new StaffBean();
-				member.setName(JOptionPane.showInputDialog("이름 입력"));
-				member.setUid(JOptionPane.showInputDialog("ID 입력"));
-				member.setPw(JOptionPane.showInputDialog("비밀번호 입력"));
-				member.setName(JOptionPane.showInputDialog("주민번호 입력"));
-				member.setName(JOptionPane.showInputDialog("전화번호 입력"));
-				member.setName(JOptionPane.showInputDialog("주소 입력"));
-				member.setName(JOptionPane.showInputDialog("이메일 입력"));
-				service.createStaff((StaffBean) member);
 				break;
 			case LIST:
-				JOptionPane.showMessageDialog(null, service.list());
+				
 				break;
 			case COUNT:
-				JOptionPane.showMessageDialog(null, service.readCount());
+			
 				break;
 			case FIND_BY_ID:
-				member = new MemberBean();
-				member.setUid(JOptionPane.showInputDialog("ID 입력"));
-				member.setPw(JOptionPane.showInputDialog("비밀번호 입력"));
-				JOptionPane.showMessageDialog(null, service.findById(member));
+				
 				break;
 			case FIND_BY_NAME:
-				member.setName(JOptionPane.showInputDialog("이름 입력"));
-				JOptionPane.showMessageDialog(null, service.findByName(member));
+	
 				break;
 			case UPDATE:
-				member = new MemberBean();
-				member.setUid(JOptionPane.showInputDialog("ID 입력"));
-				member.setPw(JOptionPane.showInputDialog("비밀번호 입력") 
-						+ "/" + 
-						JOptionPane.showInputDialog("새로운 비밀번호 입력"));
-				service.updateMember(member);
-
+			
+				break;
 			case WITHDRAWAL:
-				member = new MemberBean();
-				member.setUid(JOptionPane.showInputDialog("ID 입력"));
-				member.setPw(JOptionPane.showInputDialog("비밀번호 입력")
-						+ "/" + 
-						JOptionPane.showInputDialog("비밀번호 재확인"));
-				JOptionPane.showMessageDialog(null, service.deleteMember(member));
+				
 				break;
 			default:
 				break;

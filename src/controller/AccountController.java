@@ -26,69 +26,27 @@ public class AccountController {
 			case EXIT:
 				return;
 			case BASIC: 
-				ac = new AccountBean();
-				ac.setName(JOptionPane.showInputDialog("이름?"));
-				ac.setUid(JOptionPane.showInputDialog("ID?"));
-				ac.setPw(JOptionPane.showInputDialog("비밀번호?"));
-				service.createAccount(ac);
+				
 				break;
-			/*
-			 * ac=service.createAccount( JOptionPane.showInputDialog("이름?"),
-			 * JOptionPane.showInputDialog("ID?"), JOptionPane.showInputDialog("비밀번호?"));
-			 */
+		
 			case MINUSACCOUNT:
-				ac = new MinusAccountBean();
-				ac.setName(JOptionPane.showInputDialog("이름?"));
-				ac.setUid(JOptionPane.showInputDialog("ID?"));
-				ac.setPw(JOptionPane.showInputDialog("비밀번호?"));
-				((MinusAccountBean) ac).setLimit(JOptionPane.showInputDialog("대출한도?"));
-				service.createAccount(ac);
+			
 				break;
 			case LIST:
-				JOptionPane.showMessageDialog(null, service.list());
+			
 				break;
 			case MINUS_LIST:
-				//AccountBean[] arr = service.minusList();
+				
 				break;
 			case FIND_BY_ID:
-				// ID와 PW 받아서 일치하면 계좌내역을 보여줘.(단,비번은 ***로 처리해)
- 
-				ac = new AccountBean();
-				ac.setUid(JOptionPane.showInputDialog("ID?"));
-				ac.setPw(JOptionPane.showInputDialog("비밀번호?"));
-				JOptionPane.showMessageDialog(null, service.findById(ac));
-				// 비번 있으니까 보안 필수
+				
 				break;
 			case FIND_BY_NAME:
-				// AccountBean[] arr = service.findByName(JOptionPane.showInputDialog("NAME"));
-				// 이름하나 입력받지만 여러 명에 대한 배열
-				JOptionPane.showMessageDialog(null, service.findByName(JOptionPane.showInputDialog("NAME")));
+				
 				break;
 			case CHANGE_PW:	
-				ac= new AccountBean();  //ID, PW, NEWPW
-				
-				ac.setUid(JOptionPane.showInputDialog("ID?"));
-				ac.setPw(JOptionPane.showInputDialog("비밀번호?")
-						+"/"+
-						JOptionPane.showInputDialog("새로운 비밀번호?")
-						);
-				String msg = service.changePw(ac);
-				
-				JOptionPane.showMessageDialog(null,msg);
-				
+			
 			case DELETE_ACCOUNT:
-				ac = new AccountBean();
-				
-				ac.setUid(JOptionPane.showInputDialog("ID?"));
-				ac.setPw(JOptionPane.showInputDialog("비밀번호?")
-						+"/"+
-						JOptionPane.showInputDialog("비밀번호확인")
-						);
-				String ms = service.deleteAccount(ac);
-				
-				JOptionPane.showMessageDialog(null,ms);
-				
-				
 				
 			break;
 			default:
